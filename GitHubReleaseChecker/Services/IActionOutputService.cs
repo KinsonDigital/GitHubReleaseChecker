@@ -2,9 +2,9 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate.Exceptions;
+using GitHubReleaseChecker.Exceptions;
 
-namespace DotNetGitHubActionTemplate.Services;
+namespace GitHubReleaseChecker.Services;
 
 /// <summary>
 /// Provides the ability to set the github action output.

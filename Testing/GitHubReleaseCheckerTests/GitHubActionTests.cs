@@ -2,12 +2,11 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate;
-using DotNetGitHubActionTemplate.Services;
+using GitHubReleaseChecker;
+using GitHubReleaseChecker.Services;
 using Moq;
 
-// TODO: Rename this namespace
-namespace DotNetGitHubActionTemplateTests;
+namespace GitHubReleaseCheckerTests;
 
 public class GitHubActionTests
 {

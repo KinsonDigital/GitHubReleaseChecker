@@ -1,6 +1,8 @@
-<h1 align="center">
+<div align="right"><a href="#bottom">To the bottom!👇🏼</a></div>
 
-**DOTNET Action Template**<!--TODO: Update this-->
+<h1 id="top" align="center">
+
+**GitHub Release Checker**
 </h1>
 
 <div align="center">
@@ -9,13 +11,14 @@
 
 </div>
 
-
 <div align="center">
 
-<!--
-    TODO: Update this and update link at the bottom that sends you back to here
--->
-## **What is it?**
+## **Description**
+
+It checks to see if a GitHub release exists based on the input provided.  The input is the **user name** or **organization**, 
+
+<!-- TODO: Add more here -->
+
 </div>
 
 
@@ -75,7 +78,7 @@ TODO: Show action outputs in table
 
 ---
 
-<div align="center" style="font-weight:bold">
+<div id="examples" align="center" style="font-weight:bold">
 
 ## **Examples**
 </div>
@@ -94,7 +97,7 @@ TODO: Show examples if required
 
 ---
 
-<div align="center">
+<div id="bottom" align="center">
 
 ## **Other Info**
 </div>
@@ -103,8 +106,7 @@ TODO: Show examples if required
 
 ### License
 
-<!--TODO: Update this-->
-- [MIT License - DotNetGitHubActionTemplate]()
+- [MIT License - GitHubReleaseChecker]()
 </div>
 
 <div align="left">
@@ -114,11 +116,8 @@ TODO: Show examples if required
 
 TODO: Update these links
 
-<!--TODO: Update all of these links-->
 - [Calvin Wilkinson](https://github.com/CalvinWilkinson) (Owner and main contributor of the GitHub organization [KinsonDigital](https://github.com/KinsonDigital))
-  - [NET GitHub Action Sample](https://github.com/KinsonDigital/DotNetGitHubActionTemplate) is used in various projects for this organization with great success.
-- Click [here](https://github.com/KinsonDigital/DotNetGitHubActionTemplate/issues/new/choose) to report any issues for this GitHub action!!
+  - [GitHub Release Checker](https://github.com/KinsonDigital/GitHubReleaseChecker) is used in various projects for this organization with great success.
+- Click [here](https://github.com/KinsonDigital/GitHubReleaseChecker/issues/new/choose) to report any issues for this GitHub action!!
 
-<div align="right">
-<a href="#what-is-it?">Back to the top!👆🏼</a>
-</div>
+<div align="right"><a href="#top">To the top!👆🏼</a></div>

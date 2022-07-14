@@ -2,9 +2,9 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate.Exceptions;
+using GitHubReleaseChecker.Exceptions;
 
-namespace DotNetGitHubActionTemplate.Services;
+namespace GitHubReleaseChecker.Services;
 
 /// <inheritdoc/>
 public class ActionOutputService : IActionOutputService

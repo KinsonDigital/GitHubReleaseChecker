@@ -2,7 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-namespace DotNetGitHubActionTemplate.Services;
+namespace GitHubReleaseChecker.Services;
 
 /// <summary>
 /// Parses XML data.

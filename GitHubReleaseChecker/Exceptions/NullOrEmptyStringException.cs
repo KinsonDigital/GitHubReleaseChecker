@@ -2,7 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-namespace DotNetGitHubActionTemplate.Exceptions;
+namespace GitHubReleaseChecker.Exceptions;
 
 /// <summary>
 /// Occurs when a string is null or empty.

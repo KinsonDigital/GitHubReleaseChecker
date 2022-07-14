@@ -6,8 +6,6 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
-
-        <RootNamespace>DotNetGitHubActionTemplateTests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -47,7 +45,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\DotNetGitHubActionTemplate\DotNetGitHubActionTemplate.csproj" />
+      <ProjectReference Include="..\..\GitHubReleaseChecker\GitHubReleaseChecker.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,13 +2,13 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate.Exceptions;
-using DotNetGitHubActionTemplate.Services;
-using DotNetGitHubActionTemplateTests.Helpers;
+using GitHubReleaseChecker.Exceptions;
+using GitHubReleaseChecker.Services;
+using GitHubReleaseCheckerTests.Helpers;
 using FluentAssertions;
 using Moq;
 
-namespace DotNetGitHubActionTemplateTests.Services;
+namespace GitHubReleaseCheckerTests.Services;
 
 public class ActionOutputServiceTests
 {

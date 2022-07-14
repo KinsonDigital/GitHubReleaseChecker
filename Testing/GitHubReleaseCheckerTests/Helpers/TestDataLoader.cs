@@ -5,7 +5,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
-namespace DotNetGitHubActionTemplateTests.Helpers;
+namespace GitHubReleaseCheckerTests.Helpers;
 
 /// <summary>
 /// Loads test data for testing purposes.

@@ -2,7 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-namespace DotNetGitHubActionTemplate;
+namespace GitHubReleaseChecker;
 
 /// <summary>
 /// The main action behavior.

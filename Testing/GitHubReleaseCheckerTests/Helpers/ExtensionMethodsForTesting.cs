@@ -6,7 +6,7 @@ using System.Reflection;
 using CommandLine;
 using Xunit.Sdk;
 
-namespace DotNetGitHubActionTemplateTests.Helpers;
+namespace GitHubReleaseCheckerTests.Helpers;
 
 /// <summary>
 /// Provides extension/helper methods to assist in unit testing.

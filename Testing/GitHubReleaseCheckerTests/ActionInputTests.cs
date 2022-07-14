@@ -3,13 +3,13 @@
 // </copyright>
 
 using CommandLine;
-using DotNetGitHubActionTemplate;
-using DotNetGitHubActionTemplateTests.Helpers;
+using GitHubReleaseChecker;
+using GitHubReleaseCheckerTests.Helpers;
 using FluentAssertions;
 
 // ReSharper disable UseObjectOrCollectionInitializer
 // ReSharper disable PossibleMultipleEnumeration
-namespace DotNetGitHubActionTemplateTests;
+namespace GitHubReleaseCheckerTests;
 
 /// <summary>
 /// Tests the <see cref="ActionInputs"/> class.

@@ -2,18 +2,13 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-// TODO: Rename projects
-// TODO: Rename solution
-// TODO: Rename namespaces
-
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using DotNetGitHubActionTemplate.Services;
+using GitHubReleaseChecker.Services;
 
-// TODO: Rename the assemblyName param value to match unit test project name
-[assembly: InternalsVisibleTo("DotNetGitHubActionTests", AllInternalsVisible = true)]
+[assembly: InternalsVisibleTo("GitHubReleaseCheckerTests", AllInternalsVisible = true)]
 
-namespace DotNetGitHubActionTemplate;
+namespace GitHubReleaseChecker;
 
 /// <summary>
 /// The main application.

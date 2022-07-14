@@ -4,7 +4,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-namespace DotNetGitHubActionTemplate.Services;
+namespace GitHubReleaseChecker.Services;
 
 /// <inheritdoc/>
 [ExcludeFromCodeCoverage]

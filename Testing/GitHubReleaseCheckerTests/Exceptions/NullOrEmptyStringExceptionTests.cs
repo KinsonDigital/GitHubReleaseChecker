@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate.Exceptions;
+using GitHubReleaseChecker.Exceptions;
 using FluentAssertions;
 
-namespace DotNetGitHubActionTemplateTests.Exceptions;
+namespace GitHubReleaseCheckerTests.Exceptions;
 
 /// <summary>
 /// Tests the <see cref="NullOrEmptyStringException"/> class.

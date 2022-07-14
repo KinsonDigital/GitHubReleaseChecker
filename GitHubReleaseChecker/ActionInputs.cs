@@ -2,7 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-namespace DotNetGitHubActionTemplate;
+namespace GitHubReleaseChecker;
 
 /// <summary>
 /// Holds all of the GitHub actions inputs.

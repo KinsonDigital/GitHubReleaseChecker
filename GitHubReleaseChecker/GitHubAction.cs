@@ -2,9 +2,9 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using DotNetGitHubActionTemplate.Services;
+using GitHubReleaseChecker.Services;
 
-namespace DotNetGitHubActionTemplate;
+namespace GitHubReleaseChecker;
 
 /// <inheritdoc/>
 public class GitHubAction : IGitHubAction
