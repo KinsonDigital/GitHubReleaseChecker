@@ -1,0 +1,45 @@
+name: ✔Unit Testing Status Check
+
+
+on:
+  workflow_dispatch:
+    paths-ignore:
+      - ".github/**"
+      - "Documentation/**"
+      - '.editorconfig'
+      - '*.runsettings'
+      - '.gitattributes'
+      - '.gitignore'
+      - '*.md'
+      - '*.yml'
+      - '.vscode/**'
+      - '*.sln'
+
+
+jobs:
+  determine_build_config:
+    name: Determine Build Configuration
+    runs-on: ubuntu-latest
+    outputs:
+      build-config: ${{ steps.get-build-config.outputs.build-config }}
+    steps:
+      - name: Get Build Config
+        id: get-build-config
+        shell: pwsh
+        run: |
+          # If the destination branch that the pull request is merging into is the master, do a release build
+          if ( "${{ github.base_ref }}" -eq "master") {
+            Write-Host "::set-output name=build-config::Release"
+          } else { # Any other branch than master, do a debug build
+            Write-Host "::set-output name=build-config::Debug"
+          }
+
+
+  run_branch_validator_tests: # TODO: Update this job name
+    name: Run BranchValidator Tests # TODO: Update this project name
+    needs: determine_build_config
+    uses: KinsonDigital/Infrastructure/.github/workflows/unit-testing-status-check.yml@master
+    with:
+      project-name: "BranchValidatorTests" # TODO: Update this project name
+      build-config: ${{ needs.determine_build_config.outputs.build-config }}
+      net-sdk-version: 6.0.300
