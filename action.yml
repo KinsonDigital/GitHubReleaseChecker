@@ -1,22 +1,32 @@
-name: '.NET Github Action Template' # TODO: Set the name
-description: 'An example NET Github action.' # TODO: Set the description
+name: 'Github Release Checker'
+description: 'Checks if GitHub releases exist.'
 author: 'Calvin Wilkinson (KinsonDigital)'
 branding:
-  icon: settings
+  icon: check
   color: purple
-inputs: # TODO: Add as many inputs as needed
-  message:
-    description: 'Prints a message to the console.'
+inputs:
+  repo-owner:
+    description: 'The owner of the repository.'
+    required: true
+  repo-name:
+    description: 'The name of the repository.'
+    required: true
+  release-name:
+    description: 'The name of the release.'
     required: true
 
-outputs: # TODO: Re-enable if you want to have action outputs
-  sample-output: # This is the name of the output
-    description: 'Sample output.'
+outputs:
+  release-exists: # This is the name of the output
+    description: 'Returns a true or false value indicating whether or not the release exists.'
 
 # These are the arguments that are passed into the console app
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-  - '--message'
-  - ${{ inputs.message }}
+  - '--repo-owner'
+  - ${{ inputs.repo-owner }}
+  - '--repo-name'
+  - ${{ inputs.repo-name }}
+  - '--release-name'
+  - ${{ inputs.release-name }}

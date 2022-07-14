@@ -31,7 +31,7 @@ public class GitHubActionTests
     /// <returns>The instance to test.</returns>
     private static ActionInputs CreateInputs() => new ()
     {
-        Message = "test-owner",
+        RepoOwner = "test-owner",
     };
 
     /// <summary>

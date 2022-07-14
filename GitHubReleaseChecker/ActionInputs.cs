@@ -10,11 +10,29 @@ namespace GitHubReleaseChecker;
 public class ActionInputs
 {
     /// <summary>
-    /// Gets or sets the message to send.
+    /// Gets or sets the owner of the repository.
     /// </summary>
     [Option(
-        "message",
+        "repo-owner",
         Required = true,
-        HelpText = "Prints a message to the console.")]
-    public string Message { get; set; } = string.Empty;
+        HelpText = "The owner of the repository.")]
+    public string RepoOwner { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the name of the repository.
+    /// </summary>
+    [Option(
+        "repo-name",
+        Required = true,
+        HelpText = "The name of the repository.")]
+    public string RepoName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the name of the release.
+    /// </summary>
+    [Option(
+        "release-name",
+        Required = true,
+        HelpText = "The name of the release.")]
+    public string ReleaseName { get; set; } = string.Empty;
 }

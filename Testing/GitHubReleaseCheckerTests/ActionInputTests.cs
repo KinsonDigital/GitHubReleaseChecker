@@ -3,9 +3,9 @@
 // </copyright>
 
 using CommandLine;
+using FluentAssertions;
 using GitHubReleaseChecker;
 using GitHubReleaseCheckerTests.Helpers;
-using FluentAssertions;
 
 // ReSharper disable UseObjectOrCollectionInitializer
 // ReSharper disable PossibleMultipleEnumeration
@@ -24,10 +24,20 @@ public class ActionInputTests
         var inputs = new ActionInputs();
 
         // Assert
-        inputs.Message.Should().BeEmpty();
-        typeof(ActionInputs).GetProperty(nameof(ActionInputs.Message)).Should().BeDecoratedWith<OptionAttribute>();
-        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.Message))
-            .AssertOptionAttrProps("message", true, "Prints a message to the console.");
+        inputs.RepoOwner.Should().BeEmpty();
+        typeof(ActionInputs).GetProperty(nameof(ActionInputs.RepoOwner)).Should().BeDecoratedWith<OptionAttribute>();
+        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.RepoOwner))
+            .AssertOptionAttrProps("repo-owner", true, "The owner of the repository.");
+
+        inputs.RepoName.Should().BeEmpty();
+        typeof(ActionInputs).GetProperty(nameof(ActionInputs.RepoName)).Should().BeDecoratedWith<OptionAttribute>();
+        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.RepoName))
+            .AssertOptionAttrProps("repo-name", true, "The name of the repository.");
+
+        inputs.ReleaseName.Should().BeEmpty();
+        typeof(ActionInputs).GetProperty(nameof(ActionInputs.ReleaseName)).Should().BeDecoratedWith<OptionAttribute>();
+        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.ReleaseName))
+            .AssertOptionAttrProps("release-name", true, "The name of the release.");
     }
     #endregion
 }
