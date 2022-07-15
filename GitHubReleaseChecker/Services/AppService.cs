@@ -10,13 +10,13 @@ namespace GitHubReleaseChecker.Services;
 [ExcludeFromCodeCoverage]
 public class AppService : IAppService
 {
-    private readonly IGitHubConsoleService gitHubConsoleService;
+    private readonly IConsoleService gitHubConsoleService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AppService"/> class.
     /// </summary>
     /// <param name="gitHubConsoleService">Writes to the console.</param>
-    public AppService(IGitHubConsoleService gitHubConsoleService) => this.gitHubConsoleService = gitHubConsoleService;
+    public AppService(IConsoleService gitHubConsoleService) => this.gitHubConsoleService = gitHubConsoleService;
 
     /// <inheritdoc/>
     public void Exit(int code)

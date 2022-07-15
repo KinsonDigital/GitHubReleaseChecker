@@ -9,13 +9,13 @@ namespace GitHubReleaseChecker.Services;
 /// <inheritdoc/>
 public class ActionOutputService : IActionOutputService
 {
-    private readonly IGitHubConsoleService gitHubConsoleService;
+    private readonly IConsoleService gitHubConsoleService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ActionOutputService"/> class.
     /// </summary>
     /// <param name="gitHubConsoleService">Writes to the console.</param>
-    public ActionOutputService(IGitHubConsoleService gitHubConsoleService) => this.gitHubConsoleService = gitHubConsoleService;
+    public ActionOutputService(IConsoleService gitHubConsoleService) => this.gitHubConsoleService = gitHubConsoleService;
 
     /// <inheritdoc/>
     public void SetOutputValue(string name, string value)

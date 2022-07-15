@@ -1,4 +1,4 @@
-﻿// <copyright file="GitHubAction.cs" company="KinsonDigital">
+// <copyright file="GitHubAction.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -9,7 +9,7 @@ namespace GitHubReleaseChecker;
 /// <inheritdoc/>
 public class GitHubAction : IGitHubAction
 {
-    private readonly IGitHubConsoleService gitHubConsoleService;
+    private readonly IConsoleService gitHubConsoleService;
     private readonly IActionOutputService actionOutputService;
 
     /// <summary>
@@ -18,7 +18,7 @@ public class GitHubAction : IGitHubAction
     /// <param name="gitHubConsoleService">Writes to the console.</param>
     /// <param name="actionOutputService">Sets the output data of the action.</param>
     public GitHubAction(
-        IGitHubConsoleService gitHubConsoleService,
+        IConsoleService gitHubConsoleService,
         IActionOutputService actionOutputService)
     {
         this.gitHubConsoleService = gitHubConsoleService;

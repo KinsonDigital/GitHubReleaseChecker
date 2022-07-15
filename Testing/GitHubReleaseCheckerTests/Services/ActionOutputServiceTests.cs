@@ -12,12 +12,12 @@ namespace GitHubReleaseCheckerTests.Services;
 
 public class ActionOutputServiceTests
 {
-    private readonly Mock<IGitHubConsoleService> mockConsoleService;
+    private readonly Mock<IConsoleService> mockConsoleService;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ActionOutputServiceTests"/> class.
     /// </summary>
-    public ActionOutputServiceTests() => this.mockConsoleService = new Mock<IGitHubConsoleService>();
+    public ActionOutputServiceTests() => this.mockConsoleService = new Mock<IConsoleService>();
 
     #region Method Tests
     [Fact]

@@ -1,4 +1,4 @@
-﻿// <copyright file="Program.cs" company="KinsonDigital">
+// <copyright file="Program.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -29,7 +29,7 @@ public static class Program
             .ConfigureServices((_, services) =>
             {
                 services.AddSingleton<IAppService, AppService>();
-                services.AddSingleton<IGitHubConsoleService, GitHubConsoleService>();
+                services.AddSingleton<IConsoleService, GitHubConsoleService>();
                 services.AddSingleton<IActionOutputService, ActionOutputService>();
                 services.AddSingleton<IGitHubAction, GitHubAction>();
             }).Build();
@@ -89,7 +89,7 @@ public static class Program
     private static void ProcessInputErrors(IEnumerable<Error> errors)
     {
         var appService = host.Services.GetRequiredService<IAppService>();
-        var consoleService = host.Services.GetRequiredService<IGitHubConsoleService>();
+        var consoleService = host.Services.GetRequiredService<IConsoleService>();
 
         foreach (var error in errors)
         {

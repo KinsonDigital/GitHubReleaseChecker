@@ -1,4 +1,4 @@
-﻿// <copyright file="GitHubActionTests.cs" company="KinsonDigital">
+// <copyright file="GitHubActionTests.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -10,7 +10,7 @@ namespace GitHubReleaseCheckerTests;
 
 public class GitHubActionTests
 {
-    private readonly Mock<IGitHubConsoleService> mockConsoleService;
+    private readonly Mock<IConsoleService> mockConsoleService;
     private readonly Mock<IActionOutputService> mockActionOutputService;
 
     /// <summary>
@@ -18,7 +18,7 @@ public class GitHubActionTests
     /// </summary>
     public GitHubActionTests()
     {
-        this.mockConsoleService = new Mock<IGitHubConsoleService>();
+        this.mockConsoleService = new Mock<IConsoleService>();
         this.mockActionOutputService = new Mock<IActionOutputService>();
     }
 
