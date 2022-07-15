@@ -21,8 +21,11 @@ It checks to see if a GitHub release exists based on the input provided.  The in
 
 </div>
 
+<div align="center"><h3 style="font-weight:bold">⚠️Quick Note⚠️</h3></div>
 
-<!--TODO: Add simple description-->
+This GitHub action is built using C#/NET and runs in a docker container.  This means that the action can only be run on Linux.  
+Running in ***Windows*** is not supported.  If you need to use steps on ***Windows*** AND ***Ubuntu***, then you can split up  
+your workflow so that this action is in an isolated job that runs on ***Ubuntu***, while the rest of the workflow can be executed in ***Windows***.
 
 <div align="center"><h3 style="font-weight:bold">Quick Example</h3></div>
 
