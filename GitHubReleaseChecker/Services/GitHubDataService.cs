@@ -15,6 +15,9 @@ public sealed class GitHubDataService : IGitHubDataService
 {
     private const string BaseUrl = "https://api.github.com";
     private readonly IHttpClient client;
+    private readonly Dictionary<string, bool> repoOwnersRequested = new ();
+    private readonly Dictionary<string, bool> repoNamesRequested = new ();
+    private readonly Dictionary<string, bool> releaseNamesRequested = new ();
     private bool isDisposed;
 
     /// <summary>
@@ -28,8 +31,8 @@ public sealed class GitHubDataService : IGitHubDataService
     }
 
     /// <inheritdoc/>
-    /// <exception cref="InvalidOperationException">
-    ///     Occurs if the <see cref="repoOwner"/> is null or empty.
+    /// <exception cref="NullOrEmptyStringException">
+    ///     Occurs if the <paramref name="repoOwner"/> is null or empty.
     /// </exception>
     public async Task<bool> OwnerExists(string repoOwner)
     {
@@ -38,17 +41,28 @@ public sealed class GitHubDataService : IGitHubDataService
             throw new NullOrEmptyStringException($"The '{nameof(repoOwner)}' value cannot be null or empty.");
         }
 
+        // If already requested
+        if (this.repoOwnersRequested.ContainsKey(repoOwner))
+        {
+            return this.repoOwnersRequested[repoOwner];
+        }
+
         var resourceUri = $"users/{repoOwner}";
         var response = await this.client.Get<OwnerInfoModel>(resourceUri);
 
-        return response.statusCode == HttpStatusCode.OK &&
+        var repoOwnerExists = response.statusCode == HttpStatusCode.OK &&
             response.data is not null &&
             string.Equals(response.data.Login, repoOwner, StringComparison.CurrentCultureIgnoreCase);
+
+        // Cache the request result
+        this.repoOwnersRequested.Add(repoOwner, repoOwnerExists);
+
+        return repoOwnerExists;
     }
 
     /// <inheritdoc/>
-    /// <exception cref="InvalidOperationException">
-    ///     Occurs if the <see cref="repoOwner"/> or <see cref="repoName"/> are <b>null</b> or empty.
+    /// <exception cref="NullOrEmptyStringException">
+    ///     Occurs if the <paramref name="repoOwner"/> or <paramref name="repoName"/> are <b>null</b> or empty.
     /// </exception>
     public async Task<bool> RepoExists(string repoOwner, string repoName)
     {
@@ -62,14 +76,95 @@ public sealed class GitHubDataService : IGitHubDataService
             throw new NullOrEmptyStringException($"The '{nameof(repoName)}' value cannot be null or empty.");
         }
 
-        var requestUri = $"repos/{repoOwner}/{repoName}";
+        var repoOwnerResult = this.repoOwnersRequested.ContainsKey(repoOwner)
+            ? this.repoOwnersRequested[repoOwner]
+            : await OwnerExists(repoOwner);
 
+        if (repoOwnerResult is false)
+        {
+            return false;
+        }
+
+        var repoNameKey = $"{repoOwner}:{repoName}";
+
+        // If already requested
+        if (this.repoNamesRequested.ContainsKey(repoNameKey))
+        {
+            return this.repoNamesRequested[repoNameKey];
+        }
+
+        var requestUri = $"repos/{repoOwner}/{repoName}";
         var response = await this.client.Get<RepoModel>(requestUri);
 
-        return response.statusCode == HttpStatusCode.OK &&
+        var repoNameExists = response.statusCode == HttpStatusCode.OK &&
                response.data is not null &&
                string.Equals(response.data.Owner.Login, repoOwner, StringComparison.CurrentCultureIgnoreCase) &&
                string.Equals(response.data.Name, repoName, StringComparison.CurrentCultureIgnoreCase);
+
+        // Cache the request result
+        this.repoNamesRequested.Add(repoNameKey, repoNameExists);
+
+        return repoNameExists;
+    }
+
+    /// <inheritdoc/>
+    /// <exception cref="NullOrEmptyStringException">
+    ///     Occurs if the <paramref name="repoOwner"/>, <paramref name="repoName"/>, or <paramref name="releaseName"/> are <b>null</b> or empty.
+    /// </exception>
+    public async Task<bool> ReleaseExists(string repoOwner, string repoName, string releaseName)
+    {
+        if (string.IsNullOrEmpty(repoOwner))
+        {
+            throw new NullOrEmptyStringException($"The '{nameof(repoOwner)}' value cannot be null or empty.");
+        }
+
+        if (string.IsNullOrEmpty(repoName))
+        {
+            throw new NullOrEmptyStringException($"The '{nameof(repoName)}' value cannot be null or empty.");
+        }
+
+        if (string.IsNullOrEmpty(releaseName))
+        {
+            throw new NullOrEmptyStringException($"The '{nameof(releaseName)}' value cannot be null or empty.");
+        }
+
+        var repoOwnerResult = this.repoOwnersRequested.ContainsKey(repoOwner)
+            ? this.repoOwnersRequested[repoOwner]
+            : await OwnerExists(repoOwner);
+
+        if (repoOwnerResult is false)
+        {
+            return false;
+        }
+
+        var repoNameKey = $"{repoOwner}:{repoName}";
+        var repoNameResult = this.repoNamesRequested.ContainsKey(repoNameKey)
+            ? this.repoNamesRequested[repoNameKey]
+            : await RepoExists(repoOwner, repoName);
+
+        if (repoNameResult is false)
+        {
+            return false;
+        }
+
+        var releaseNameKey = $"{repoOwner}:{repoName}:{releaseName}";
+
+        if (this.releaseNamesRequested.ContainsKey(releaseNameKey))
+        {
+            return this.releaseNamesRequested[releaseNameKey];
+        }
+
+        var requestUri = $"repos/{repoOwner}/{repoName}/releases";
+        var response = await this.client.Get<ReleaseModel>(requestUri);
+
+        var releaseNameExists = response.statusCode == HttpStatusCode.OK &&
+                         response.data is not null &&
+                         string.Equals(response.data.Name, releaseName, StringComparison.CurrentCultureIgnoreCase);
+
+        // Cache the request result
+        this.releaseNamesRequested.Add(releaseNameKey, releaseNameExists);
+
+        return releaseNameExists;
     }
 
     /// <inheritdoc/>
