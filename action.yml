@@ -14,6 +14,10 @@ inputs:
   release-name:
     description: 'The name of the release.'
     required: true
+  fail-when-not-found:
+    description: "If true, will fail the workflow when the release is not found.  Default value of true."
+    required: false
+    default: true
 
 outputs:
   release-exists: # This is the name of the output
@@ -30,3 +34,5 @@ runs:
   - ${{ inputs.repo-name }}
   - '--release-name'
   - ${{ inputs.release-name }}
+  - '--fail-when-not-found'
+  - ${{ inputs.fail-when-not-found }}

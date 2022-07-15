@@ -16,7 +16,7 @@ namespace GitHubReleaseCheckerTests;
 /// </summary>
 public class ActionInputTests
 {
-    #region Prop Tests
+    #region Constructor Tests
     [Fact]
     public void Ctor_WhenConstructed_PropsHaveCorrectDefaultValuesAndDecoratedWithAttributes()
     {
@@ -38,6 +38,66 @@ public class ActionInputTests
         typeof(ActionInputs).GetProperty(nameof(ActionInputs.ReleaseName)).Should().BeDecoratedWith<OptionAttribute>();
         inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.ReleaseName))
             .AssertOptionAttrProps("release-name", true, "The name of the release.");
+
+        inputs.FailWhenNotFound.Should().BeTrue();
+        typeof(ActionInputs).GetProperty(nameof(ActionInputs.FailWhenNotFound)).Should().BeDecoratedWith<OptionAttribute>();
+        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.FailWhenNotFound))
+            .AssertOptionAttrProps("fail-when-not-found", false, "If true fails the workflow when the release is not found.  Default value of true.");
+    }
+    #endregion
+
+    #region Prop Tests
+    [Fact]
+    public void RepoOwner_WhenSettingValue_ReturnsCorrectResult()
+    {
+        // Arrange
+        var inputs = new ActionInputs();
+
+        // Act
+        inputs.RepoOwner = "test-owner";
+
+        // Assert
+        inputs.RepoOwner.Should().Be("test-owner");
+    }
+
+    [Fact]
+    public void RepoName_WhenSettingValue_ReturnsCorrectResult()
+    {
+        // Arrange
+        var inputs = new ActionInputs();
+
+        // Act
+        inputs.RepoName = "test-name";
+
+        // Assert
+        inputs.RepoName.Should().Be("test-name");
+    }
+
+    [Fact]
+    public void ReleaseName_WhenSettingValue_ReturnsCorrectResult()
+    {
+        // Arrange
+        var inputs = new ActionInputs();
+
+        // Act
+        inputs.ReleaseName = "test-name";
+
+        // Assert
+        inputs.ReleaseName.Should().Be("test-name");
+    }
+
+    [Fact]
+    public void FailWhenNotValid_WhenSettingValue_ReturnsCorrectResult()
+    {
+        // Arrange
+        var inputs = new ActionInputs();
+
+        // Act
+        var expected = !inputs.FailWhenNotFound;
+        inputs.FailWhenNotFound = !inputs.FailWhenNotFound;
+
+        // Assert
+        inputs.FailWhenNotFound.Should().Be(expected);
     }
     #endregion
 }

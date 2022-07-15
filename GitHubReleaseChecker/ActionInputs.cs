@@ -35,4 +35,13 @@ public class ActionInputs
         Required = true,
         HelpText = "The name of the release.")]
     public string ReleaseName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether or not the action will fail if the release is not found.
+    /// </summary>
+    [Option(
+        "fail-when-not-found",
+        Required = false,
+        HelpText = "If true, will fail the workflow when the release is not found.  Default value of true.")]
+    public bool FailWhenNotFound { get; set; } = true;
 }
