@@ -5,7 +5,7 @@
 namespace GitHubReleaseChecker.Exceptions;
 
 /// <summary>
-/// Occurs when a string is null or empty.
+/// Occurs when a repository does not exist.
 /// </summary>
 public class RepoDoesNotExistException : Exception
 {
