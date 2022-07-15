@@ -42,7 +42,7 @@ public class ActionInputTests
         inputs.FailWhenNotFound.Should().BeTrue();
         typeof(ActionInputs).GetProperty(nameof(ActionInputs.FailWhenNotFound)).Should().BeDecoratedWith<OptionAttribute>();
         inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.FailWhenNotFound))
-            .AssertOptionAttrProps("fail-when-not-found", false, "If true fails the workflow when the release is not found.  Default value of true.");
+            .AssertOptionAttrProps("fail-when-not-found", false, "If true, will fail the workflow when the release is not found.  Default value of true.");
     }
     #endregion
 
