@@ -1,4 +1,8 @@
-﻿using System.Net;
+﻿// <copyright file="IHttpClient.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+using System.Net;
 
 namespace GitHubReleaseChecker;
 
@@ -8,7 +12,7 @@ namespace GitHubReleaseChecker;
 public interface IHttpClient : IDisposable
 {
     /// <summary>
-    /// Gets or sets the BaseUrl property for requests made by this client instance
+    /// Gets or sets the BaseUrl property for requests made by this client instance.
     /// </summary>
     string BaseUrl { get; set; }
 

@@ -2,8 +2,8 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-using GitHubReleaseChecker.Exceptions;
 using FluentAssertions;
+using GitHubReleaseChecker.Exceptions;
 
 namespace GitHubReleaseCheckerTests.Exceptions;
 

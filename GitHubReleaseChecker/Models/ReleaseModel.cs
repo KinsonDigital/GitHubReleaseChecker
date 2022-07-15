@@ -1,4 +1,8 @@
-﻿namespace GitHubReleaseChecker.Models;
+﻿// <copyright file="ReleaseModel.cs" company="KinsonDigital">
+// Copyright (c) KinsonDigital. All rights reserved.
+// </copyright>
+
+namespace GitHubReleaseChecker.Models;
 
 public record ReleaseModel
 {

@@ -2,10 +2,10 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+using FluentAssertions;
 using GitHubReleaseChecker.Exceptions;
 using GitHubReleaseChecker.Services;
 using GitHubReleaseCheckerTests.Helpers;
-using FluentAssertions;
 using Moq;
 
 namespace GitHubReleaseCheckerTests.Services;
