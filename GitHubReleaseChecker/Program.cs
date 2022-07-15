@@ -1,4 +1,4 @@
-// <copyright file="Program.cs" company="KinsonDigital">
+﻿// <copyright file="Program.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -31,6 +31,7 @@ public static class Program
                 services.AddSingleton<IAppService, AppService>();
                 services.AddSingleton<IConsoleService, GitHubConsoleService>();
                 services.AddSingleton<IActionOutputService, ActionOutputService>();
+                services.AddSingleton<IHttpClient, HttpClient>();
                 services.AddSingleton<IGitHubAction, GitHubAction>();
             }).Build();
 
@@ -84,7 +85,7 @@ public static class Program
     /// </summary>
     /// <param name="errors">The list of input errors.</param>
     /// <exception cref="NullReferenceException">
-    ///     Thrown if the <see cref="IGitHubConsoleService"/> is null.
+    ///     Thrown if the <see cref="IConsoleService"/> is null.
     /// </exception>
     private static void ProcessInputErrors(IEnumerable<Error> errors)
     {
