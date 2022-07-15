@@ -2,6 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+using GitHubReleaseChecker.Exceptions;
 using GitHubReleaseChecker.Services;
 
 namespace GitHubReleaseChecker;
@@ -9,6 +10,7 @@ namespace GitHubReleaseChecker;
 /// <inheritdoc/>
 public class GitHubAction : IGitHubAction
 {
+    private const string ReleaseExistsOutputName = "release-exists";
     private readonly IConsoleService gitHubConsoleService;
     private readonly IActionOutputService actionOutputService;
     private readonly IGitHubDataService githubDataService;
@@ -38,9 +40,65 @@ public class GitHubAction : IGitHubAction
     {
         ShowWelcomeMessage();
 
-        // var repoOwnerExists =
         try
         {
+            this.gitHubConsoleService.Write($"Checking if the repository owner '{inputs.RepoOwner}' exists . . .");
+            var repoOwnerExists = await this.githubDataService.OwnerExists(inputs.RepoOwner);
+
+            if (repoOwnerExists is false)
+            {
+                var message = $"The repository owner '{inputs.RepoOwner}' does not exist.";
+
+                if (inputs.FailWhenNotFound)
+                {
+                    throw new RepoOwnerDoesNotExistException(message);
+                }
+
+                this.gitHubConsoleService.WriteLine(message, true, true);
+                this.actionOutputService.SetOutputValue(ReleaseExistsOutputName, repoOwnerExists.ToString().ToLower());
+
+                return;
+            }
+
+            this.gitHubConsoleService.WriteLine(" the repository owner exists.", false, true);
+
+            this.gitHubConsoleService.Write($"Checking if the repository '{inputs.RepoName}' exists . . .");
+            var repoExists = await this.githubDataService.RepoExists(inputs.RepoOwner, inputs.RepoName);
+
+            if (repoExists is false)
+            {
+                var message = $"The repository '{inputs.RepoName}' does not exist.";
+
+                if (inputs.FailWhenNotFound)
+                {
+                    throw new RepoDoesNotExistException(message);
+                }
+
+                this.gitHubConsoleService.WriteLine(message, true, true);
+                this.actionOutputService.SetOutputValue(ReleaseExistsOutputName, repoExists.ToString().ToLower());
+
+                return;
+            }
+
+            this.gitHubConsoleService.WriteLine(" the repository exists.", false, true);
+
+            this.gitHubConsoleService.Write($"Checking if the release '{inputs.ReleaseName}' exists . . .");
+            var releaseExists = await this.githubDataService.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName);
+
+            if (releaseExists is false)
+            {
+                var message = $"The release '{inputs.ReleaseName}' does not exist.";
+
+                if (inputs.FailWhenNotFound)
+                {
+                    throw new ReleaseDoesNotExistException(message);
+                }
+
+                this.gitHubConsoleService.WriteLine(message, true, true);
+            }
+
+            this.gitHubConsoleService.WriteLine(" the release exists.", false, true);
+            this.actionOutputService.SetOutputValue(ReleaseExistsOutputName, releaseExists.ToString().ToLower());
         }
         catch (Exception e)
         {
