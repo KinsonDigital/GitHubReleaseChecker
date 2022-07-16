@@ -1,4 +1,4 @@
-// <copyright file="ActionInputs.cs" company="KinsonDigital">
+﻿// <copyright file="ActionInputs.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
@@ -36,6 +36,15 @@ public class ActionInputs
         Required = true,
         HelpText = "The name of the release.")]
     public string ReleaseName { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a value indicting whether or not pre-releases will be checked.
+    /// </summary>
+    [Option(
+        "check-pre-releases",
+        Required = false,
+        HelpText = "If true, will also check pre-releases.  Default value is false.")]
+    public bool? CheckPreReleases { get; set; } = false;
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the action will fail if the release is not found.

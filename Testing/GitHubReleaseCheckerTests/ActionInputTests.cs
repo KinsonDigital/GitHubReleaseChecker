@@ -37,10 +37,21 @@ public class ActionInputTests
         inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.ReleaseName))
             .AssertOptionAttrProps("release-name", true, "The name of the release.");
 
+        inputs.CheckPreReleases.Should().BeFalse();
+        typeof(ActionInputs).GetProperty(nameof(ActionInputs.CheckPreReleases)).Should().BeDecoratedWith<OptionAttribute>();
+        inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.CheckPreReleases))
+            .AssertOptionAttrProps(
+                "check-pre-releases",
+                false,
+                "If true, will also check pre-releases.  Default value is false.");
+
         inputs.FailWhenNotFound.Should().BeTrue();
         typeof(ActionInputs).GetProperty(nameof(ActionInputs.FailWhenNotFound)).Should().BeDecoratedWith<OptionAttribute>();
         inputs.GetAttrFromProp<OptionAttribute>(nameof(ActionInputs.FailWhenNotFound))
-            .AssertOptionAttrProps("fail-when-not-found", false, "If true, will fail the workflow when the release is not found.  Default value of true.");
+            .AssertOptionAttrProps(
+                "fail-when-not-found",
+                false,
+                "If true, will fail the workflow when the release is not found.  Default value of true.");
     }
     #endregion
 
