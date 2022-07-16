@@ -49,7 +49,7 @@ public class GitHubAction : IGitHubAction
             {
                 var message = $"The repository owner '{inputs.RepoOwner}' does not exist.";
 
-                if (inputs.FailWhenNotFound)
+                if (inputs.FailWhenNotFound is true)
                 {
                     throw new RepoOwnerDoesNotExistException(message);
                 }
@@ -69,7 +69,7 @@ public class GitHubAction : IGitHubAction
             {
                 var message = $"The repository '{inputs.RepoName}' does not exist.";
 
-                if (inputs.FailWhenNotFound)
+                if (inputs.FailWhenNotFound is true)
                 {
                     throw new RepoDoesNotExistException(message);
                 }
@@ -89,7 +89,7 @@ public class GitHubAction : IGitHubAction
             {
                 var message = $"The release '{inputs.ReleaseName}' does not exist.";
 
-                if (inputs.FailWhenNotFound)
+                if (inputs.FailWhenNotFound is true)
                 {
                     throw new ReleaseDoesNotExistException(message);
                 }

@@ -1,18 +1,18 @@
-name: 'Github Release Checker'
-description: 'Checks if GitHub releases exist.'
-author: 'Calvin Wilkinson (KinsonDigital)'
+name: "Github Release Checker"
+description: "Checks if GitHub releases exist."
+author: "Calvin Wilkinson (KinsonDigital)"
 branding:
   icon: check
   color: purple
 inputs:
   repo-owner:
-    description: 'The owner of the repository.'
+    description: "The owner of the repository."
     required: true
   repo-name:
-    description: 'The name of the repository.'
+    description: "The name of the repository."
     required: true
   release-name:
-    description: 'The name of the release.'
+    description: "The name of the release."
     required: true
   fail-when-not-found:
     description: "If true, will fail the workflow when the release is not found.  Default value of true."
@@ -21,18 +21,18 @@ inputs:
 
 outputs:
   release-exists: # This is the name of the output
-    description: 'Returns a true or false value indicating whether or not the release exists.'
+    description: "Returns a true or false value indicating whether or not the release exists."
 
 # These are the arguments that are passed into the console app
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
-  - '--repo-owner'
+  - "--repo-owner"
   - ${{ inputs.repo-owner }}
-  - '--repo-name'
+  - "--repo-name"
   - ${{ inputs.repo-name }}
-  - '--release-name'
+  - "--release-name"
   - ${{ inputs.release-name }}
-  - '--fail-when-not-found'
+  - "--fail-when-not-found"
   - ${{ inputs.fail-when-not-found }}

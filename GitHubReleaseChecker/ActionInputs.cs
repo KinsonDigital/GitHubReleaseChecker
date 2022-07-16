@@ -1,7 +1,8 @@
-﻿// <copyright file="ActionInputs.cs" company="KinsonDigital">
+// <copyright file="ActionInputs.cs" company="KinsonDigital">
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
+// ReSharper disable PropertyCanBeMadeInitOnly.Global
 namespace GitHubReleaseChecker;
 
 /// <summary>
@@ -43,5 +44,5 @@ public class ActionInputs
         "fail-when-not-found",
         Required = false,
         HelpText = "If true, will fail the workflow when the release is not found.  Default value of true.")]
-    public bool FailWhenNotFound { get; set; } = true;
+    public bool? FailWhenNotFound { get; set; } = true;
 }
