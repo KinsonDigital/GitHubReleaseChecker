@@ -20,8 +20,8 @@ public class ReleaseModelTests
         AssertExtensions.PropertyGetsAndSets<ReleaseModel, string>(nameof(ReleaseModel.HtmlUrl), "value");
         AssertExtensions.PropertyGetsAndSets<ReleaseModel, string>(nameof(ReleaseModel.TagName), "value");
         AssertExtensions.PropertyGetsAndSets<ReleaseModel, string>(nameof(ReleaseModel.Name), "value");
-        AssertExtensions.PropertyGetsAndSets<ReleaseModel, bool>(nameof(ReleaseModel.Draft), true);
-        AssertExtensions.PropertyGetsAndSets<ReleaseModel, bool>(nameof(ReleaseModel.PreRelease), true);
+        AssertExtensions.BoolPropertyGetsAndSets<ReleaseModel>(nameof(ReleaseModel.Draft));
+        AssertExtensions.BoolPropertyGetsAndSets<ReleaseModel>(nameof(ReleaseModel.PreRelease));
     }
     #endregion
 }

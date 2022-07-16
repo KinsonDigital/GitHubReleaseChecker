@@ -7,8 +7,6 @@ using FluentAssertions;
 using GitHubReleaseChecker;
 using GitHubReleaseCheckerTests.Helpers;
 
-// ReSharper disable UseObjectOrCollectionInitializer
-// ReSharper disable PossibleMultipleEnumeration
 namespace GitHubReleaseCheckerTests;
 
 /// <summary>
@@ -48,56 +46,13 @@ public class ActionInputTests
 
     #region Prop Tests
     [Fact]
-    public void RepoOwner_WhenSettingValue_ReturnsCorrectResult()
+    public void AutoProperties_WhenSettingValues_ReturnsCorrectResults()
     {
-        // Arrange
-        var inputs = new ActionInputs();
-
-        // Act
-        inputs.RepoOwner = "test-owner";
-
         // Assert
-        inputs.RepoOwner.Should().Be("test-owner");
-    }
-
-    [Fact]
-    public void RepoName_WhenSettingValue_ReturnsCorrectResult()
-    {
-        // Arrange
-        var inputs = new ActionInputs();
-
-        // Act
-        inputs.RepoName = "test-name";
-
-        // Assert
-        inputs.RepoName.Should().Be("test-name");
-    }
-
-    [Fact]
-    public void ReleaseName_WhenSettingValue_ReturnsCorrectResult()
-    {
-        // Arrange
-        var inputs = new ActionInputs();
-
-        // Act
-        inputs.ReleaseName = "test-name";
-
-        // Assert
-        inputs.ReleaseName.Should().Be("test-name");
-    }
-
-    [Fact]
-    public void FailWhenNotValid_WhenSettingValue_ReturnsCorrectResult()
-    {
-        // Arrange
-        var inputs = new ActionInputs();
-
-        // Act
-        var expected = !inputs.FailWhenNotFound;
-        inputs.FailWhenNotFound = !inputs.FailWhenNotFound;
-
-        // Assert
-        inputs.FailWhenNotFound.Should().Be(expected);
+        AssertExtensions.PropertyGetsAndSets<ActionInputs, string>(nameof(ActionInputs.RepoOwner), "value");
+        AssertExtensions.PropertyGetsAndSets<ActionInputs, string>(nameof(ActionInputs.RepoName), "value");
+        AssertExtensions.PropertyGetsAndSets<ActionInputs, string>(nameof(ActionInputs.ReleaseName), "value");
+        AssertExtensions.BoolPropertyGetsAndSets<ActionInputs>(nameof(ActionInputs.FailWhenNotFound));
     }
     #endregion
 }
