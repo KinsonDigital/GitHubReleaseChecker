@@ -31,7 +31,12 @@ public class GitHubActionTests
             .Returns(Task.FromResult(true));
         this.mockGitHubDataService.Setup(m => m.RepoExists(It.IsAny<string>(), It.IsAny<string>()))
             .Returns(Task.FromResult(true));
-        this.mockGitHubDataService.Setup(m => m.ReleaseExists(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+        this.mockGitHubDataService.Setup(m
+                => m.ReleaseExists(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<bool?>()))
             .Returns(Task.FromResult(true));
     }
 
@@ -187,7 +192,11 @@ public class GitHubActionTests
     {
         // Arrange
         this.mockGitHubDataService.Setup(m
-            => m.ReleaseExists(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            => m.ReleaseExists(
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<bool?>()))
             .Returns(Task.FromResult(false));
         var inputs = CreateInputs(failWhenNotFound: true);
         var action = CreateAction();
@@ -198,7 +207,8 @@ public class GitHubActionTests
         // Assert
         await act.Should().ThrowAsync<ReleaseDoesNotExistException>()
             .WithMessage($"The release '{inputs.ReleaseName}' does not exist.");
-        this.mockGitHubDataService.VerifyOnce(m => m.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName));
+        this.mockGitHubDataService.VerifyOnce(m
+            => m.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName, inputs.CheckPreReleases));
     }
 
     [Fact]
@@ -230,7 +240,11 @@ public class GitHubActionTests
     {
         // Arrange
         this.mockGitHubDataService.Setup(m
-                => m.ReleaseExists(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                => m.ReleaseExists(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<bool?>()))
             .Returns(Task.FromResult(false));
 
         var inputs = CreateInputs(failWhenNotFound: false);
@@ -241,7 +255,8 @@ public class GitHubActionTests
 
         // Assert
         await act.Should().NotThrowAsync();
-        this.mockGitHubDataService.VerifyOnce(m => m.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName));
+        this.mockGitHubDataService.VerifyOnce(m
+            => m.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName, inputs.CheckPreReleases));
         this.mockConsoleService.VerifyOnce(m
             => m.WriteLine($"The release '{inputs.ReleaseName}' does not exist.", true, true));
         this.mockActionOutputService.VerifyOnce(m => m.SetOutputValue(ReleaseExistsOutputName, "false"));
@@ -256,11 +271,13 @@ public class GitHubActionTests
         string repoOwner = "test-owner",
         string repoName = "test-repo",
         string releaseName = "test-release-name",
+        bool checkPreReleases = true,
         bool failWhenNotFound = true) => new ()
     {
         RepoOwner = repoOwner,
         RepoName = repoName,
         ReleaseName = releaseName,
+        CheckPreReleases = checkPreReleases,
         FailWhenNotFound = failWhenNotFound,
     };
 

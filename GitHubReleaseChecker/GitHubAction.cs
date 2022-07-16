@@ -83,7 +83,11 @@ public class GitHubAction : IGitHubAction
             this.gitHubConsoleService.WriteLine(" the repository exists.", false, true);
 
             this.gitHubConsoleService.Write($"Checking if the release '{inputs.ReleaseName}' exists . . .");
-            var releaseExists = await this.githubDataService.ReleaseExists(inputs.RepoOwner, inputs.RepoName, inputs.ReleaseName);
+            var releaseExists = await this.githubDataService.ReleaseExists(
+                inputs.RepoOwner,
+                inputs.RepoName,
+                inputs.ReleaseName,
+                inputs.CheckPreReleases);
 
             if (releaseExists is false)
             {
