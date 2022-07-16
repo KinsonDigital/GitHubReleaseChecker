@@ -42,10 +42,11 @@ public interface IGitHubDataService : IDisposable
     /// <param name="repoOwner">The owner of the repository.</param>
     /// <param name="repoName">The name of the repository.</param>
     /// <param name="releaseName">The name of the release.</param>
+    /// <param name="checkPreReleases">If true, will also check pre-releases.</param>
     /// <returns>An asynchronous bool result of <b>true</b> if the release exists.</returns>
     /// <remarks>
     ///     The <paramref name="repoOwner"/> can also be the GitHub organization name if
     ///     the repository exists in a GitHub organization.
     /// </remarks>
-    Task<bool> ReleaseExists(string repoOwner, string repoName, string releaseName);
+    Task<bool> ReleaseExists(string repoOwner, string repoName, string releaseName, bool? checkPreReleases);
 }

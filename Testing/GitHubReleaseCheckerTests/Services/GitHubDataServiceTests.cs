@@ -221,7 +221,11 @@ public class GitHubDataServiceTests
         var service = CreateService();
 
         // Act
-        var act = () => service.ReleaseExists(repoOwner, It.IsAny<string>(), It.IsAny<string>());
+        var act = () => service.ReleaseExists(
+            repoOwner,
+            It.IsAny<string>(),
+            It.IsAny<string>(),
+            It.IsAny<bool>());
 
         // Assert
         await act.Should().ThrowAsync<NullOrEmptyStringException>()
@@ -237,7 +241,11 @@ public class GitHubDataServiceTests
         var service = CreateService();
 
         // Act
-        var act = () => service.ReleaseExists("test-owner", repoName, It.IsAny<string>());
+        var act = () => service.ReleaseExists(
+            "test-owner",
+            repoName,
+            It.IsAny<string>(),
+            It.IsAny<bool?>());
 
         // Assert
         await act.Should().ThrowAsync<NullOrEmptyStringException>()
@@ -253,7 +261,7 @@ public class GitHubDataServiceTests
         var service = CreateService();
 
         // Act
-        var act = () => service.ReleaseExists("test-owner", "test-repo", releaseName);
+        var act = () => service.ReleaseExists("test-owner", "test-repo", releaseName, It.IsAny<bool?>());
 
         // Assert
         await act.Should().ThrowAsync<NullOrEmptyStringException>()
@@ -272,7 +280,7 @@ public class GitHubDataServiceTests
         var service = CreateService();
 
         // Act
-        var actual = await service.ReleaseExists("test-owner", "test-repo", "test-release");
+        var actual = await service.ReleaseExists("test-owner", "test-repo", "test-release", true);
 
         // Assert
         actual.Should().BeFalse();
@@ -296,8 +304,8 @@ public class GitHubDataServiceTests
         MockRequestResult(HttpStatusCode.BadRequest, repoModel, repoRequestUri);
 
         // Act
-        var actualFirstInvoke = await service.ReleaseExists(repoOwner, repoName, releaseName);
-        var actualSecondInvoke = await service.ReleaseExists(repoOwner, repoName, releaseName);
+        var actualFirstInvoke = await service.ReleaseExists(repoOwner, repoName, releaseName, true);
+        var actualSecondInvoke = await service.ReleaseExists(repoOwner, repoName, releaseName, true);
 
         // Assert
         actualFirstInvoke.Should().BeFalse();
@@ -310,7 +318,8 @@ public class GitHubDataServiceTests
         // Arrange
         const string repoOwner = "test-owner";
         const string repoName = "test-repo";
-        const string releaseName = "test-release";
+        const string releaseNameA = "test-release-a";
+        const string releaseNameB = "test-release-b";
         const string ownerInfoRequestUri = $"users/{repoOwner}";
         const string repoRequestUri = $"repos/{repoOwner}/{repoName}";
         const string releaseRequestUri = $"repos/{repoOwner}/{repoName}/releases";
@@ -318,18 +327,22 @@ public class GitHubDataServiceTests
         var service = CreateService();
         var ownerInfoModel = new OwnerInfoModel { Login = repoOwner };
         var repoModel = new RepoModel { Name = repoName, Owner = ownerInfoModel };
-        var releaseModel = new ReleaseModel { Name = releaseName };
+        var releaseModels = new ReleaseModel[]
+        {
+            new () { Name = releaseNameA },
+            new () { Name = releaseNameB },
+        };
 
         MockRequestResult(HttpStatusCode.OK, ownerInfoModel, ownerInfoRequestUri);
         MockRequestResult(HttpStatusCode.OK, repoModel, repoRequestUri);
-        MockRequestResult(HttpStatusCode.OK, releaseModel, releaseRequestUri);
+        MockRequestResult(HttpStatusCode.OK, releaseModels, releaseRequestUri);
 
         // Act
-        await service.ReleaseExists(repoOwner, repoName, releaseName);
-        await service.ReleaseExists(repoOwner, repoName, releaseName);
+        await service.ReleaseExists(repoOwner, repoName, releaseNameA, true);
+        await service.ReleaseExists(repoOwner, repoName, releaseNameA, true);
 
         // Assert
-        this.mockHttpClient.VerifyOnce(m => m.Get<ReleaseModel>(releaseRequestUri));
+        this.mockHttpClient.VerifyOnce(m => m.Get<ReleaseModel[]>(releaseRequestUri));
     }
 
     [Fact]

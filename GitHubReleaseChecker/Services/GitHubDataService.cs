@@ -111,7 +111,7 @@ public sealed class GitHubDataService : IGitHubDataService
     /// <exception cref="NullOrEmptyStringException">
     ///     Occurs if the <paramref name="repoOwner"/>, <paramref name="repoName"/>, or <paramref name="releaseName"/> are <b>null</b> or empty.
     /// </exception>
-    public async Task<bool> ReleaseExists(string repoOwner, string repoName, string releaseName)
+    public async Task<bool> ReleaseExists(string repoOwner, string repoName, string releaseName, bool? checkPreReleases)
     {
         if (string.IsNullOrEmpty(repoOwner))
         {
@@ -155,16 +155,28 @@ public sealed class GitHubDataService : IGitHubDataService
         }
 
         var requestUri = $"repos/{repoOwner}/{repoName}/releases";
-        var response = await this.client.Get<ReleaseModel>(requestUri);
+        var response = await this.client.Get<ReleaseModel[]>(requestUri);
 
-        var releaseNameExists = response.statusCode == HttpStatusCode.OK &&
-                         response.data is not null &&
-                         string.Equals(response.data.Name, releaseName, StringComparison.CurrentCultureIgnoreCase);
+        if (response.statusCode != HttpStatusCode.OK)
+        {
+            return false;
+        }
+
+        var releaseExists = response.data?.Any(release =>
+        {
+            if (checkPreReleases is true)
+            {
+                return string.Equals(release.Name, releaseName, StringComparison.CurrentCultureIgnoreCase) &&
+                       release.PreRelease;
+            }
+
+            return string.Equals(release.Name, releaseName, StringComparison.CurrentCultureIgnoreCase);
+        }) ?? false;
 
         // Cache the request result
-        this.releaseNamesRequested.Add(releaseNameKey, releaseNameExists);
+        this.releaseNamesRequested.Add(releaseNameKey, releaseExists);
 
-        return releaseNameExists;
+        return releaseExists;
     }
 
     /// <inheritdoc/>
