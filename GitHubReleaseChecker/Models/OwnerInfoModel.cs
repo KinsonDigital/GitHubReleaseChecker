@@ -2,7 +2,7 @@
 // Copyright (c) KinsonDigital. All rights reserved.
 // </copyright>
 
-// ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+// ReSharper disable PropertyCanBeMadeInitOnly.Global
 namespace GitHubReleaseChecker.Models;
 
 /// <summary>
@@ -11,7 +11,7 @@ namespace GitHubReleaseChecker.Models;
 public record OwnerInfoModel
 {
     /// <summary>
-    /// Gets or sets the login name of the owner.
+    /// Gets or sets the login name.
     /// </summary>
     public string Login { get; set; } = string.Empty;
 }
