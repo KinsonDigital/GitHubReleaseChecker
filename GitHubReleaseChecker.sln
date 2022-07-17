@@ -19,6 +19,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubReleaseCheckerTests", "Testing\GitHubReleaseCheckerTests\GitHubReleaseCheckerTests.csproj", "{A27A654A-52AA-4B2D-B9AF-75DAC9DF1807}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{3FB14118-6942-463A-9E6E-58EE7968075E}"
+	ProjectSection(SolutionItems) = preProject
+		Testing\.editorconfig = Testing\.editorconfig
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issue Templates", "Issue Templates", "{330C0AE1-8934-470D-9652-F19BD167741A}"
 	ProjectSection(SolutionItems) = preProject
